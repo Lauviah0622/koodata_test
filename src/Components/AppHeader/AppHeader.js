@@ -1,11 +1,9 @@
-
-
 import React from "react";
 import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
 
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { ReactComponent as BackIcon } from "./arrow.svg";
-
 
 const LogoTitle = styled.h1`
   font-weight: 400;
@@ -31,7 +29,7 @@ const HeaderWrapper = styled.header`
 
 const StyledBackIcon = styled(BackIcon)`
   fill: var(--color-font);
-  padding: .5em;
+  padding: 0.5em;
   height: 2em;
   transition: 0.2s ease-out;
   &:hover {
@@ -44,13 +42,17 @@ export default function AppLogo() {
 
   return (
     <HeaderWrapper>
-      <div className="backBtn">
-        <StyledBackIcon onClick={() => {
-          console.log('back')
-          console.log(history)
-          history.goBack();
-        }}/>
-      </div>
+      <Switch>
+        <div className="backBtn">
+          <Route exact path={/\/tt(\d){6,}/}>
+            <StyledBackIcon
+              onClick={() => {
+                history.goBack();
+              }}
+            />
+          </Route>
+        </div>
+      </Switch>
       <div className="logo">
         <LogoTitle>Online Movie System</LogoTitle>
         <LogoSubTitle>Find the hottest movies</LogoSubTitle>

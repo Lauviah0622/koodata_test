@@ -64,7 +64,7 @@ export default function Slider({ data }) {
   return (
     <>
       <SlideWrapper
-        slidesPerView={2.5}
+        slidesPerView={3.3}
         spaceBetween={10}
         freeMode={true}
         touchRatio={0.5}
