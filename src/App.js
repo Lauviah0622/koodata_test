@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+
+import { Switch, Route, Redirect } from "react-router-dom";
+
+import AppHeader from "./Components/AppHeader";
+import Homepage from "./Page/Homepage";
+import Movie from "./Page/Movie";
+
+const AppWrapper = styled.div`
+
+  box-sizing: border-box;
+  /* max-width: 1400px; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem;
+
+  main {
+    flex-grow: 1
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <AppHeader />
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path={/\/tt(\d){6,}/}>
+            <Movie />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </main>
+    </AppWrapper>
   );
 }
 
