@@ -10,7 +10,6 @@ const Wrapper = styled.div``;
 
 export default function Category({ title, endpoint, name}) {
   const data = useFetchMovieData(endpoint, name)
-  console.log('catacory', data);
   return (
     <Wrapper>
       <Title>{title}</Title>

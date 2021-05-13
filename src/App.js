@@ -8,16 +8,14 @@ import Homepage from "./Page/Homepage";
 import Movie from "./Page/Movie";
 
 const AppWrapper = styled.div`
-
   box-sizing: border-box;
-  /* max-width: 1400px; */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: 1rem;
 
   main {
-    flex-grow: 1
+    flex-grow: 1;
   }
 `;
 

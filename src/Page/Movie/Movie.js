@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
 import Scores from "./Scores";
-
 import useFetchMovieInfo from "../../hooks/useFetchMovieInfo";
+import NakedLoader from "../../Components/Loader";
 
 const PageWrapper = styled.div`
   display: flex;
+  min-height: 50vh;
   @media all and (max-width: 990px) {
     flex-direction: column;
     width: 80%;
@@ -33,9 +34,6 @@ const PageWrapper = styled.div`
       }
     }
   }
-
-  .info {
-  }
 `;
 
 const Title = styled.h2`
@@ -46,19 +44,39 @@ const Title = styled.h2`
 
 const Content = styled.p``;
 
+
+
+const Loader = styled(function ({ className }) {
+  return (<div className={className}>
+    <NakedLoader />
+  </div>)
+})`
+  padding-top: 35vh;
+`;
+// I think its more clearier than create two components if both components and style are simple , but maybe its discustnig to other one...
+
 const NakedItem = ({ name, children, className }) => (
   <div className={className}>
-    <div className="name">{name}：</div>
+    <div className="name">{name}</div>
     <div>{children}</div>
   </div>
 );
 
 const Item = styled(NakedItem)`
+  font-size: 1.2em;
   display: flex;
   .name {
-    width: 8ch;
+    &::after {
+      content: "：";
+      position: absolute;
+      right: 0;
+    }
+    margin-bottom: 0.5em;
+    position: relative;
+    width: 10ch;
     font-weight: 500;
-    font-size: 1.2em;
+
+    flex-shrink: 0;
   }
 `;
 
@@ -66,10 +84,9 @@ export default function HomePage() {
   const { pathname: param } = useLocation();
   const IMDbId = param.match(/tt(\d){6,}/)[0];
   const movieInfo = useFetchMovieInfo(IMDbId);
-  console.log('movieInfo', movieInfo);
   const content =
     movieInfo == null ? (
-      <div>loading</div>
+      <Loader />
     ) : (
       <PageWrapper>
         <div className="poster">
@@ -77,14 +94,15 @@ export default function HomePage() {
         </div>
         <div className="info">
           <Title>{movieInfo.Title}</Title>
-          <Scores
-            data={movieInfo.Ratings}
-          />
+          <Scores data={movieInfo.Ratings} />
           <Content>{movieInfo.Plot}</Content>
-          <Item name="director">{movieInfo.Director}</Item>
+          <Item name="Director">{movieInfo.Director}</Item>
+          <Item name="Actors">{movieInfo.Actors}</Item>
+          <Item name="Writer">{movieInfo.Writer}</Item>
+          <Item name="Year">{movieInfo.Year}</Item>
+          <Item name="Genre">{movieInfo.Genre}</Item>
         </div>
-      </PageWrapper>
+        </PageWrapper>
     );
-
   return content;
 }

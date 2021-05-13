@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 
+import Loader from "../Loader";
 import useFetchMovieImg from "../../hooks/useFetchMovieInfo";
 
 import "swiper/swiper.min.css";
@@ -30,17 +30,14 @@ const SlideItem = ({ data: IMDbid, className }) => {
   const movieInfo = useFetchMovieImg(IMDbid);
   const poster =
     movieInfo == null ? (
-      <div>"loading..."</div>
+      <Loader />
     ) : (
-      <StyledPoster src={movieInfo.Poster} alt={IMDbid} />
+  <Link to={`/${IMDbid}`}>
+  <StyledPoster src={movieInfo.Poster} alt={IMDbid} />
+  </Link>
     );
-  return (
-    <div className={className}>
-      <Link to={`/${IMDbid}`}>
-        {poster}
-      </Link>
-    </div>
-  );
+  // const poster = <Loader />;
+  return <div className={className}>{poster}</div>;
 };
 
 const StyledSlideItem = styled(SlideItem)`
@@ -49,6 +46,13 @@ const StyledSlideItem = styled(SlideItem)`
   width: 100%;
   & img {
     height: 100%;
+  }
+  > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 `;
 

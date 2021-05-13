@@ -20,8 +20,6 @@ export default function HomePage() {
         endpoint="get-coming-soon-movies"
         name="comming"
       />
-      {/* <Category title="熱門電影" key="hot"/>
-      <Category title="即將上映電影" key="release"/> */}
     </PageWrapper>
   );
 }
