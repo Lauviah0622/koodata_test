@@ -18,7 +18,6 @@ export default function useFetchMovieData(endpoint, key) {
         const pureIMDbIds = response.map((url) => {
           return url.match(/tt(\d){6,}/)[0];
         });
-        console.log("fetch", pureIMDbIds);
         localStorage.setItem(
           key,
           JSON.stringify({ data: pureIMDbIds, time: new Date() })
